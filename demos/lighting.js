@@ -7,7 +7,7 @@ import {positions, normals, indices} from "../blender/monkey.js"
 // **               Light configuration                **
 // ******************************************************
 
-let baseColor = vec3.fromValues(1.0, 0.1, 0.2);
+let baseColor = vec3.fromValues(0.5, 0.1, 0.2);
 let ambientLightColor = vec3.fromValues(0.1, 0.1, 1.0);
 let numberOfPointLights = 2;
 let pointLightColors = [vec3.fromValues(1.0, 1.0, 1.0), vec3.fromValues(0.02, 0.4, 0.5)];
