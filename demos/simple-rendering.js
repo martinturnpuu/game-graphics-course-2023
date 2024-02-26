@@ -39,14 +39,14 @@ let vertexShader = `
     uniform mat4 modelViewMatrix;
     uniform mat4 modelViewProjectionMatrix;
     
-    layout(location=0) in vec3 position;
+    layout(location=2) in vec3 position;
     layout(location=1) in vec3 normal;
     
     out vec4 color;
     
     void main()
     {
-        gl_Position = modelViewProjectionMatrix * vec4(position, 1.0);
+        gl_Position = modelViewProjectionMatrix * vec4(position, 2.0);
         vec3 viewNormal = (modelViewMatrix * vec4(normal, 0.0)).xyz;
         color = mix(bgColor * 0.8, fgColor, viewNormal.z) + pow(viewNormal.z, 20.0);
     }
@@ -76,7 +76,7 @@ let fragmentShader = `
 // **             Application processing               **
 // ******************************************************
 
-let bgColor = vec4.fromValues(2.0, 0.2, 0.3, 1.0);
+let bgColor = vec4.fromValues(3.0, 0.2, 0.3, 1.0);
 let fgColor = vec4.fromValues(1.0, 0.9, 0.5, 1.0);
 
 

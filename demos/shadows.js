@@ -168,7 +168,7 @@ function drawObjects(dc) {
     dc.draw();
 
     // Large object
-    quat.fromEuler(rotation, time * 12, time * 14, 0);
+    quat.fromEuler(rotation, time * 14, time * 14, 0);
     mat4.fromRotationTranslationScale(modelMatrix, rotation, vec3.fromValues(-2.4, -2.4, -1.2), [2, 2, 2]);
     mat4.multiply(modelViewProjectionMatrix, viewProjMatrix, modelMatrix);
     mat4.multiply(lightModelViewProjectionMatrix, lightViewProjMatrix, modelMatrix);
