@@ -3,7 +3,7 @@
 import PicoGL from "../node_modules/picogl/build/module/picogl.js";
 import {mat4, vec3, mat3, vec4, vec2} from "../node_modules/gl-matrix/esm/index.js";
 
-import {positions, normals, indices} from "../blender/cube.js"
+import {positions, normals, indices} from "../blender/bandana.js"
 import {positions as planePositions, uvs as planeUvs, indices as planeIndices} from "../blender/plane.js"
 
 // language=GLSL
@@ -146,7 +146,7 @@ let skyboxArray = app.createVertexArray()
     .indexBuffer(planeIndicesBuffer);
 
 let mirrorArray = app.createVertexArray()
-    .vertexAttributeBuffer(0, planePositionsBuffer)
+    .vertexAttributeBuffer(2, planePositionsBuffer)
     .vertexAttributeBuffer(1, planeUvsBuffer)
     .indexBuffer(planeIndicesBuffer);
 

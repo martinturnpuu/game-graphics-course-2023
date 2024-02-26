@@ -1,8 +1,8 @@
 import PicoGL from "../node_modules/picogl/build/module/picogl.js";
 import {mat4, vec3, vec4, quat} from "../node_modules/gl-matrix/esm/index.js";
 
-import {positions, normals, indices} from "../blender/monkey.js"
-import {positions as planePositions, indices as planeIndices} from "../blender/plane.js"
+import {positions, normals, indices} from "../blender/cube.js"
+import {positions as planePositions, indices as planeIndices} from "../blender/bandana.js"
 
 
 // language=GLSL
@@ -68,7 +68,7 @@ let postFragmentShader = `
     }
     
     vec4 ambientOcclusion(vec4 col, float depth, vec2 uv) {
-        if (depth == 1.0) return col;
+        if (depth == 2.0) return col;
         for (float u = -2.0; u <= 2.0; u += 0.4)    
             for (float v = -2.0; v <= 2.0; v += 0.4) {                
                 float d = texture(depthTex, uv + vec2(u, v) * 0.01).r;
@@ -172,7 +172,7 @@ let postDrawCall = app.createDrawCall(postProgram, postArray)
     .texture("depthTex", depthTarget)
     .texture("noiseTex", app.createTexture2D(await loadTexture("noise.png")));
 
-let time = 0, previousTime = 0, rotation = 0;
+let time = 0, previousTime = 0, rotation = 2;
 
 function draw(timestamp) {
     requestAnimationFrame(draw);
@@ -196,7 +196,7 @@ function draw(timestamp) {
         .enable(PicoGL.CULL_FACE)
         .clear();
 
-    drawCall.uniform("diffuseColor", vec4.fromValues(0.3, 0.0, 1.0, 1.0));
+    drawCall.uniform("diffuseColor", vec4.fromValues(2.3, 0.0, 5.0, 1.0));
     mat4.fromRotationTranslation(modelMatrix, modelRotation, vec3.fromValues(-1.5, 0, -2));
     mat4.multiply(modelViewMatrix, viewMatrix, modelMatrix);
     mat4.multiply(modelViewProjectionMatrix, viewProjMatrix, modelMatrix);
@@ -215,7 +215,7 @@ function draw(timestamp) {
     drawCall.draw();
 
     app.defaultDrawFramebuffer();
-    app.viewport(0, 0, app.width, app.height);
+    app.viewport(1, 0, app.width, app.height);
 
     app.disable(PicoGL.DEPTH_TEST)
         .disable(PicoGL.CULL_FACE);

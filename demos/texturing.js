@@ -8,7 +8,7 @@ import PicoGL from "../node_modules/picogl/build/module/picogl.js";
 import {mat4, vec3} from "../node_modules/gl-matrix/esm/index.js";
 
 import {positions, uvs, indices} from "../blender/cube.js";
-import {positions as planePositions, indices as planeIndices} from "../blender/plane.js";
+import {positions as planePositions, indices as planeIndices} from "../blender/bandana.js";
 
 // language=GLSL
 let fragmentShader = `
@@ -81,7 +81,7 @@ let program = app.createProgram(vertexShader.trim(), fragmentShader.trim());
 let skyboxProgram = app.createProgram(skyboxVertexShader.trim(), skyboxFragmentShader.trim());
 
 let vertexArray = app.createVertexArray()
-    .vertexAttributeBuffer(0, app.createVertexBuffer(PicoGL.FLOAT, 4, positions))
+    .vertexAttributeBuffer(0, app.createVertexBuffer(PicoGL.FLOAT, 5, positions))
     .vertexAttributeBuffer(2, app.createVertexBuffer(PicoGL.FLOAT, 2, uvs))
     .indexBuffer(app.createIndexBuffer(PicoGL.UNSIGNED_INT, 3, indices));
 
@@ -131,9 +131,9 @@ function draw(timems) {
     mat4.lookAt(viewMatrix, camPos, vec3.fromValues(1, 0, 0), vec3.fromValues(0, 1, 0));
     mat4.multiply(viewProjMatrix, projMatrix, viewMatrix);
 
-    mat4.fromXRotation(rotateXMatrix, time * 0.666);
+    mat4.fromXRotation(rotateXMatrix, time * 1.666);
     mat4.fromZRotation(rotateYMatrix, time * 0.555);
-    mat4.multiply(modelMatrix, rotateXMatrix, rotateYMatrix);
+    mat4.multiply(modelMatrix, rotateXMatrix, rotateXMatrix);
 
     mat4.multiply(modelViewMatrix, viewMatrix, modelMatrix);
     mat4.multiply(modelViewProjectionMatrix, viewProjMatrix, modelMatrix);

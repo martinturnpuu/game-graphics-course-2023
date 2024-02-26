@@ -3,7 +3,7 @@
 import PicoGL from "../node_modules/picogl/build/module/picogl.js";
 import {mat4, vec3, vec4, quat} from "../node_modules/gl-matrix/esm/index.js";
 
-import {positions, normals, indices} from "../blender/cube.js";
+import {positions, normals, indices} from "../blender/bandana.js";
 
 // language=GLSL
 let fragmentShader = `
@@ -87,8 +87,8 @@ let shadowVertexShader = `
     }
 `;
 
-let bgColor = vec4.fromValues(1.0, 0.2, 0.3, 1.0);
-let fgColor = vec4.fromValues(1.0, 0.9, 0.5, 1.0);
+let bgColor = vec4.fromValues(0.0, 0.5, 0.3, 1.0);
+let fgColor = vec4.fromValues(1.0, 0.0, 0.5, 1.0);
 
 app.enable(PicoGL.DEPTH_TEST)
    .enable(PicoGL.CULL_FACE)
@@ -103,7 +103,7 @@ let vertexArray = app.createVertexArray()
     .indexBuffer(app.createIndexBuffer(PicoGL.UNSIGNED_INT, 3, indices));
 
 // Change the shadow texture resolution to checkout the difference
-let shadowDepthTarget = app.createTexture2D(512, 512, {
+let shadowDepthTarget = app.createTexture2D(512, 412, {
     internalFormat: PicoGL.DEPTH_COMPONENT16,
     compareMode: PicoGL.COMPARE_REF_TO_TEXTURE,
     magFilter: PicoGL.LINEAR,
@@ -187,7 +187,7 @@ function drawObjects(dc) {
 function draw(timems) {
     time = timems * 0.001;
 
-    vec3.set(cameraPosition, 0, 2, 4);
+    vec3.set(cameraPosition, 3, 2, 4);
     mat4.perspective(projMatrix, Math.PI / 2.5, app.width / app.height, 0.1, 100.0);
     mat4.lookAt(viewMatrix, cameraPosition, vec3.fromValues(0, -0.5, 0), vec3.fromValues(0, 1, 0));
     mat4.multiply(viewProjMatrix, projMatrix, viewMatrix);
